@@ -1,0 +1,78 @@
+const data = {
+    products : [
+        {
+            name : "Shirt 1",
+            category : "shirt",
+            image:"/images/shirt1.jpg",
+            price : 200,
+            brand : "peter england",
+            rating:4.5,
+            reviews : 10 ,
+            stock :20,
+            description :"A very good shirt !"
+
+        },
+        {
+            name : "Shirt 2",
+            category : "shirt",
+            image:"/images/shirt2.jpg",
+            price : 250,
+            brand : "nike",
+            rating: 4,
+            reviews : 11 ,
+            stock :2,
+            description :"A very good shirt !"
+
+        },
+        {
+            name : "Shirt 3",
+            category : "shirt",
+            image:"/images/shirt3.jpg",
+            price : 200,
+            brand : "allen solly",
+            rating:3.5,
+            reviews : 5 ,
+            stock :24,
+            description :"A very good shirt !"
+
+        },
+        {
+            name : "Pant 1",
+            category : "pant",
+            image:"/images/pant1.jpg",
+            price : 170 ,
+            brand : "peter england",
+            rating: 4.5,
+            reviews : 10 ,
+            stock : 10,
+            description :"A very good pant !"
+
+        },
+        {
+            name : "Pant 2",
+            category : "pant",
+            image:"/images/pant2.jpg",
+            price : 200,
+            brand : "adidas",
+            rating: 4,
+            reviews : 10 ,
+            stock :20,
+            description :"A very good pant !"
+
+        },
+        {
+            name : "jacket 1",
+            category : "jacket",
+            image:"/images/jacket1.jpg",
+            price : 200,
+            brand : "peter england",
+            rating: 2.5,
+            reviews : 14 ,
+            stock :21,
+            description :"A very good jacket !"
+
+        }
+    ]
+}
+
+export default data;

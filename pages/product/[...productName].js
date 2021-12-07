@@ -1,26 +1,14 @@
-import {useRouter} from 'next/router'
 import Layout from '../../components/layout'
-import data from '../../utils/data'
 import ProductPage from '../../components/productDetails'
 import useStyles from '../../utils/styles'
+import db from '../../utils/dbConnect'
+import ProductModel from '../../models/Product'
 
-export default function ProductDetails() {
-    const router = useRouter()
-    const {productName} = router.query
+export default function ProductDetails({productData}) {
+
     const classes = useStyles()
-    if(!productName)
-    {
-        return (
-            <Layout>
-                <h1> Product Not Found !!</h1>
-            </Layout>
-        )
-    }
-
-    const product = data.products.find(p => p.slug === productName[0])
-
-    console.log(product)
-    if(!product)
+    console.log(productData)
+    if(!productData)
     {
         return (
             <Layout>
@@ -30,11 +18,30 @@ export default function ProductDetails() {
     }
 
     return (
-        <Layout title={product.name} description ={product.description}>
+        
+        // <Layout title={productData.name} description ={productData.description.toString()}>
+         <Layout > 
             <div class={classes.mainContentSection}>
-                <ProductPage product={product}/>
+                <ProductPage product={productData}/>
             </div>
         </Layout>
 
     )
 }
+
+
+export async function getServerSideProps(context){
+    const {params} = context
+    const {productName} = params
+
+    await db.connect()
+    const product = await ProductModel.findOne({slug : productName}).lean()
+    await db.disconnect()
+
+    return {
+      props : {
+        productData : db.convertDocToObj(product),
+      }
+    }
+  }
+  

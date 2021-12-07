@@ -29,7 +29,7 @@ export default function ProductPage({product}) {
                         </ListItem>
                         <ListItem>Category :  {product.category}</ListItem>
                         <ListItem>Brand :  {product.brand}</ListItem>
-                        <ListItem>Rating :  {product.rating} ({product.reviews} reviews)</ListItem>
+                        <ListItem>Rating :  {product.rating} ({product.reviewsCount} reviews)</ListItem>
                         <ListItem>
                             <Typography>
                                 {product.description}

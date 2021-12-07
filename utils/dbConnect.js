@@ -46,6 +46,15 @@ async function disconnect(){
     }
 }
 
-const db = {connect , disconnect}
+function convertDocToObj(doc){
+    // we do this cause we faced problem in return data collected from mongo db in getServerSideProps
+    doc._id = doc._id.toString()
+    doc.createdAt = doc.createdAt.toString()
+    doc.updatedAt = doc.updatedAt.toString()
+    return doc
+}
 
-export default db;
+
+const db = {connect , disconnect ,convertDocToObj}
+
+export default db ;

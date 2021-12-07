@@ -8,7 +8,7 @@ const data = {
             price : 200,
             brand : "peter england",
             rating:4.5,
-            reviews : 10 ,
+            reviewsCount : 10 ,
             stock :20,
             description :"A very good shirt !"
 
@@ -22,7 +22,7 @@ const data = {
             price : 250,
             brand : "nike",
             rating: 4,
-            reviews : 11 ,
+            reviewsCount : 11 ,
             stock :2,
             description :"A very good shirt !"
 
@@ -36,7 +36,7 @@ const data = {
             price : 200,
             brand : "allen solly",
             rating:3.5,
-            reviews : 5 ,
+            reviewsCount : 5 ,
             stock :24,
             description :"A very good shirt !"
 
@@ -50,7 +50,7 @@ const data = {
             price : 170 ,
             brand : "peter england",
             rating: 4.5,
-            reviews : 10 ,
+            reviewsCount : 10 ,
             stock : 10,
             description :"A very good pant !"
 
@@ -63,7 +63,7 @@ const data = {
             price : 200,
             brand : "adidas",
             rating: 4,
-            reviews : 10 ,
+            reviewsCount : 10 ,
             stock :20,
             description :"A very good pant !"
 
@@ -76,7 +76,7 @@ const data = {
             price : 200,
             brand : "peter england",
             rating: 2.5,
-            reviews : 14 ,
+            reviewsCount : 14 ,
             stock :0,
             description :"A very good jacket !"
 

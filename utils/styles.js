@@ -17,6 +17,18 @@ const useStyles = makeStyles({
         textAlign: 'center',
         color:'white' 
       },
+      brandName:{
+        cursor:"pointer",
+      },
+      grow: {
+        flexGrow :1,
+      },
+      mainContentSection : {
+      },
+      section : {
+        margin:"10px auto"
+
+      }
 })
 
 export default useStyles;

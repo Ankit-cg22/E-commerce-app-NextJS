@@ -2,6 +2,7 @@ const data = {
     products : [
         {
             name : "Shirt 1",
+            slug : "shirt-1",
             category : "shirt",
             image:"/images/shirt1.jpg",
             price : 200,
@@ -14,6 +15,8 @@ const data = {
         },
         {
             name : "Shirt 2",
+            slug : "shirt-2",
+
             category : "shirt",
             image:"/images/shirt2.jpg",
             price : 250,
@@ -26,6 +29,8 @@ const data = {
         },
         {
             name : "Shirt 3",
+            slug : "shirt-3",
+
             category : "shirt",
             image:"/images/shirt3.jpg",
             price : 200,
@@ -38,6 +43,8 @@ const data = {
         },
         {
             name : "Pant 1",
+            slug : "pant-1",
+
             category : "pant",
             image:"/images/pant1.jpg",
             price : 170 ,
@@ -50,6 +57,7 @@ const data = {
         },
         {
             name : "Pant 2",
+            slug : "pant-2",
             category : "pant",
             image:"/images/pant2.jpg",
             price : 200,
@@ -62,13 +70,14 @@ const data = {
         },
         {
             name : "jacket 1",
+            slug : "jacket-1",
             category : "jacket",
             image:"/images/jacket1.jpg",
             price : 200,
             brand : "peter england",
             rating: 2.5,
             reviews : 14 ,
-            stock :21,
+            stock :0,
             description :"A very good jacket !"
 
         }

@@ -5,10 +5,12 @@ import { Store } from '../utils/store'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
+import {useRouter} from 'next/router'
 
 export default function Cart() {
     const {state , dispatch} = useContext(Store)
     const {cart : {cartItems}} = state
+    const router = useRouter()
 
     const updateQuantityHandler = async (item, quantity) => {
         const {data} = await axios.get(`/api/product/${item._id}`)
@@ -105,7 +107,7 @@ export default function Cart() {
                         <Typography>
                             Total price : ${cartItems.reduce((a,c) => a + c.quantity*c.price, 0)}
                         </Typography>
-                        <Button fullWidth variant="contained"> 
+                        <Button fullWidth variant="contained" onClick={()=>router.push('/shipping')}> 
                             Checkout
                         </Button>
                     </Card>

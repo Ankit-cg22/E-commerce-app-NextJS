@@ -6,7 +6,7 @@ export const Store = createContext();
 const initialState = {
     darkMode :false,
     cart : {
-        cartItems:Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : []
+        cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : []
     }
 }
 

@@ -4,11 +4,26 @@ import Layout from '../components/layout'
 import { Store } from '../utils/store'
 import NextLink from 'next/link'
 import Image from 'next/image'
+import axios from 'axios'
 
 export default function Cart() {
-    const {state} = useContext(Store)
+    const {state , dispatch} = useContext(Store)
     const {cart : {cartItems}} = state
     console.log(cartItems)
+
+    const updateQuantityHandler = async (item, quantity) => {
+        const {data} = await axios.get(`/api/product/${item._id}`)
+        if(data.stock <= 0 )
+        {
+            window.alert("Product is out of stock ! Please check back later !")
+            return 
+        }
+        dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...item ,  quantity: quantity }})
+        
+
+    }
+
+
     return (
         <Layout >
             <Typography componenet="h1" variant="h2">Cart</Typography>
@@ -54,7 +69,7 @@ export default function Cart() {
                                         </NextLink>
                                     </TableCell>
                                     <TableCell  align="right">
-                                        <Select value={item.quantity}>
+                                        <Select value={item.quantity} onChange={(e) => updateQuantityHandler(item , e.target.value )}>
                                             {[...Array(item.stock).keys()].map((x)=>(
                                                 <MenuItem value={x+1} key={x+1} >
                                                     {x+1}

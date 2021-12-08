@@ -9,11 +9,10 @@ import axios from 'axios'
 export default function Cart() {
     const {state , dispatch} = useContext(Store)
     const {cart : {cartItems}} = state
-    console.log(cartItems)
 
     const updateQuantityHandler = async (item, quantity) => {
         const {data} = await axios.get(`/api/product/${item._id}`)
-        if(data.stock <= 0 )
+        if(data.stock < quantity )
         {
             window.alert("Product is out of stock ! Please check back later !")
             return 
@@ -21,6 +20,11 @@ export default function Cart() {
         dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...item ,  quantity: quantity }})
         
 
+    }
+
+    const removeItemHandler =  (item)=>{
+        dispatch({ type : 'CART_REMOVE_PRODUCT' , payload: item})
+        // alert({item.name})
     }
 
 
@@ -83,7 +87,7 @@ export default function Cart() {
                                         </Typography>
                                     </TableCell>
                                     <TableCell  align="right">
-                                        <Button variant="contained">
+                                        <Button variant="contained" onClick={()=>removeItemHandler(item)}>
                                             X
                                         </Button>
                                     </TableCell>

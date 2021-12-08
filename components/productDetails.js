@@ -16,12 +16,19 @@ export default function ProductPage({product}) {
 
     const addToCartHandler = async () => {
         const {data} = await axios.get(`/api/product/${product._id}`)
-        if(data.stock <=0 )
+
+        // check if it already exists in the cart
+        const currItem = state.cart.cartItems.find(item => item._id === product._id)
+        const prevQuantity = currItem? currItem.quantity : 0;
+
+        if(data.stock < prevQuantity + 1 )
         {
             window.alert("Product is out of stock ! Please check back later !")
             return 
         }
-        dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...product ,  quantity :1}})
+
+        
+        dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...product ,  quantity : prevQuantity+1}})
     }
     return (
     <div>

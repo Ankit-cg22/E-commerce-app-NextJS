@@ -29,7 +29,8 @@ export default function Cart() {
         // alert({item.name})
     }
 
-
+    console.log("oi")
+    console.log(cartItems)
     return (
         <Layout >
             <Typography componenet="h1" variant="h2">Cart</Typography>

@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import {useEffect} from 'react'
+import { StoreProvider } from '../utils/store'
 
 function MyApp({ Component, pageProps }) {
 
@@ -12,7 +13,12 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
 
-  return <Component {...pageProps} />
+  return (
+    <StoreProvider>
+      <Component {...pageProps} />
+
+    </StoreProvider>
+  )
 }
 
 export default MyApp

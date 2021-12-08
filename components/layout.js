@@ -1,12 +1,16 @@
-import React from 'react'
+import {React , useContext} from 'react'
 import Head from 'next/head'
-import {AppBar, Container, Toolbar , Typography } from '@material-ui/core'
+import {AppBar, Container, Toolbar , Typography , Batch, Badge } from '@material-ui/core'
 import useStyles from '../utils/styles'
 import NextLink from 'next/link'
 import { Link } from '@material-ui/core'
+import {Store} from '../utils/store'
+
 
 export default function Layout({children , title , description}) {
     const classes = useStyles()
+    const {state , dispatch} = useContext(Store)
+    const {cart} = state
 
     return (
         <div>
@@ -29,7 +33,13 @@ export default function Layout({children , title , description}) {
 
                     <div>
                         <NextLink href="/cart" passHref>
-                            <Link>Cart</Link>
+                            <Link>
+                            {cart.cartItems.length >0 ?
+                             <Badge color="primary" badgeContent={cart.cartItems.length}>Cart</Badge>
+                             :
+                             "Cart"
+                            }
+                            </Link>
                         </NextLink>
                         <NextLink href="/signin" passHref>
                             <Link>Log In</Link>

@@ -6,9 +6,11 @@ export const Store = createContext();
 const initialState = {
     darkMode :false,
     cart : {
-        cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : []
+        cartItems: Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : [] , 
+        shippingData : Cookies.get('shippingData') ? JSON.parse(JSON.stringify(Cookies.get('shippingData'))) : [],
     },
-    userInfo :  Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null
+    userInfo :  Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null,
+        
     
 }
 
@@ -38,6 +40,10 @@ function reducer(state, action){
             
             return {...state , userInfo : null , cart : {cartItems:[]}}
         };
+
+        case "SAVE_SHIPPING_DATA":{
+            return {...state , cart : {...state.cart , shippingData : action.payload}}
+        }
     }
 }
 

@@ -2,137 +2,217 @@ import { Button, Link, List, ListItem, TextField, Typography } from '@material-u
 import React , {useState , useEffect } from 'react'
 import Layout from '../components/layout'
 import NextLink from 'next/link'
-import axios from 'axios'
 import { Store } from '../utils/store'
 import { useContext } from 'react'
 import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
-import { Controller , useForm  } from 'react-hook-form'
+import  {Controller , useForm} from 'react-hook-form'
+import ShoppingSteps from '../components/shoppingSteps'
+
 export default function Shipping() {
-
-    const router = useRouter()
-    const {
-        handleSubmit , control , formState:{errors}
-    }
-    const {state, reducer} = useContext(Store)
-    const {userInfo }= state
-
-    if(!userInfo)
-    {
-        router.push('/login?redirect=/shipping')
-        // we make use of this redirect query in login page to redirect back to where we came from 
-    }
-
-    return (
-        <div>
-            <h1> Shipping page </h1>
-        </div>
-    )
-}
-
-export default function Login() {
     const router = useRouter()
     const {redirect} = router.query;
+    const {handleSubmit , control , formState : {errors } , setValue}= useForm();
 
-    const {state, dispatch} = useContext(Store)
+    const {state, dispatch , } = useContext(Store)
 
     // if a already logged in user exists , direct him to home page 
-    const {userInfo} = state
+    const {userInfo , cart : {shippingData}}  = state
+
     useEffect(() => {
-        if (userInfo) {
-          router.push('/');
+        if (!userInfo) {
+          router.push('/login?redirect=/shipping');
         }
+        setValue('name' , shippingData.name)
+        setValue('address' , shippingData.address)
+        setValue('city' , shippingData.city)
+        setValue('pinCode' , shippingData.pinCode)
+        setValue('country' , shippingData.country)
       }, []);
 
-    const [name , setName] = useState('')
-    const [email , setEmail] = useState('')
-    const [password , setPassword] = useState('')
-    const [confirmPassword , setConfirmPassword] = useState('')
 
-    const submitHandler= async (e) => {
-        if(password !== confirmPassword)
-        {
-            alert("Passwords do not match !!")
-            return 
-        }
-
-
-        console.log(name)
-        console.log(email)
-        console.log(password)
-
-        e.preventDefault();
-        try{
-            const {data} = await axios.post('/api/users/register' ,{ name , email , password})
-            dispatch({type : "USER_LOGIN" , payload : data} )
-            Cookies.set('userInfo' , JSON.stringify(data))
-            router.push(redirect || '/')
-            alert("success")
-        }catch(err){        
-            alert(err.response?.data? err.response.data.message : err.message)
-        }   
+    const submitHandler=  ({name , adress , city , pinCode , country}) => {
+        
+        dispatch({type : "SAVE_SHIPPING_DATA" , payload : {name , adress , city , pinCode , country}} )
+        Cookies.set('shippingData' , {name , adress , city , pinCode , country})
+        router.push('/payment')
+ 
     }
 
     return (
         <Layout>
-            <form onSubmit = {submitHandler}>
+            <ShoppingSteps activeStep={1}/>
+            <form onSubmit = {handleSubmit(submitHandler)}>
                 <Typography component="h1" variant="h2">
-                    Register
+                    Shipping Details
                 </Typography>
                 <List>
-                    <ListItem >
-                        <TextField 
-                        fullWidth 
-                        variant="outlined" 
-                        id="name" 
-                        label="Name" 
-                        inputProps={{type : 'test'}}
-                        onChange={(e) => setName(e.target.value)}
-                        />
-                    </ListItem>
-                    <ListItem >
-                        <TextField 
-                        fullWidth 
-                        variant="outlined" 
-                        id="email" 
-                        label="Email" 
-                        inputProps={{type : 'email'}}
-                        onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </ListItem>
-        
-                    <ListItem>
-                        <TextField 
-                        fullWidth 
-                        variant="outlined" 
-                        id="password" 
-                        label="Password" 
-                        inputProps={{type : 'password'}}
-                        onChange={(e) => setPassword(e.target.value)}
+                <ListItem>
+                       
+                       <Controller
+                           name ="name"
+                           control ={control}
+                           defaultValue=""
+                           rules={{
+                               required:true,
+                               minLength : 2
+                           }}
+                           render={({field}) => (
+                               <TextField 
+                               fullWidth 
+                               variant="outlined" 
+                               id="name" 
+                               label="Name" 
+                               inputProps={{type : 'text'}}
+                               error = {Boolean(errors.name)}
+                               helperText={errors.name?
+                                           errors.name.type === 'minLength' ? 'Name length should be at least 2!!'             
+                                           :
+                                           "Name is required" 
+                                       :
+                                       ""
+                                       }
+                               {...field}
+       
+                               />
+                           )}>
+                       </Controller>
+                   </ListItem>
+                    
+                <ListItem>
+                       
+                       <Controller
+                           name ="address"
+                           control ={control}
+                           defaultValue=""
+                           rules={{
+                               required:true,
+                               minLength : 10
+                           }}
+                           render={({field}) => (
+                               <TextField 
+                               fullWidth 
+                               variant="outlined" 
+                               id="address" 
+                               label="Address" 
+                               inputProps={{type : 'text'}}
+                               error = {Boolean(errors.address)}
+                               helperText={errors.address?
+                                           errors.address.type === 'minLength' ? 'Address length should be at least 10!!'             
+                                           :
+                                           "Address is required" 
+                                       :
+                                       ""
+                                       }
+                               {...field}
+       
+                               />
+                           )}>
+                       </Controller>
+                   </ListItem>
+                   <ListItem>
+                       
+                       <Controller
+                           name ="city"
+                           control ={control}
+                           defaultValue=""
+                           rules={{
+                               required:true,
+                               minLength : 2
+                           }}
+                           render={({field}) => (
+                               <TextField 
+                               fullWidth 
+                               variant="outlined" 
+                               id="city" 
+                               label="City" 
+                               inputProps={{type : 'text'}}
+                               error = {Boolean(errors.city)}
+                               helperText={errors.city?
+                                           errors.city.type === 'minLength' ? 'City length should be at least 2!!'             
+                                           :
+                                           "City is required" 
+                                       :
+                                       ""
+                                       }
+                               {...field}
+       
+                               />
+                           )}>
+                       </Controller>
+                   </ListItem>
+                    
+                   <ListItem>
+                       
+                       <Controller
+                           name ="pinCode"
+                           control ={control}
+                           defaultValue=""
+                           rules={{
+                               required:true,
+                               minLength : 5
+                           }}
+                           render={({field}) => (
+                               <TextField 
+                               fullWidth 
+                               variant="outlined" 
+                               id="pinCode" 
+                               label="PIN Code" 
+                               inputProps={{type : 'number'}}
+                               error = {Boolean(errors.pinCode)}
+                               helperText={errors.pinCode?
+                                           errors.pinCode.type === 'minLength' ? 'PIN Code length should be at least 5!!'             
+                                           :
+                                           "PIN Code is required" 
+                                       :
+                                       ""
+                                       }
+                               {...field}
+       
+                               />
+                           )}>
+                       </Controller>
+                   </ListItem>
 
-                        />
-                    </ListItem>
-        
-                    <ListItem>
-                        <TextField 
-                        fullWidth 
-                        variant="outlined" 
-                        id="password" 
-                        label="Confirm Password" 
-                        inputProps={{type : 'password'}}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                   <ListItem>
+                       
+                       <Controller
+                           name ="country"
+                           control ={control}
+                           defaultValue=""
+                           rules={{
+                               required:true,
+                               minLength : 2
+                           }}
+                           render={({field}) => (
+                               <TextField 
+                               fullWidth 
+                               variant="outlined" 
+                               id="country" 
+                               label="country" 
+                               inputProps={{type : 'text'}}
+                               error = {Boolean(errors.country)}
+                               helperText={errors.country?
+                                           errors.country.type === 'minLength' ? 'Country length should be at least 2!!'             
+                                           :
+                                           "Country is required" 
+                                       :
+                                       ""
+                                       }
+                               {...field}
+       
+                               />
+                           )}>
+                       </Controller>
+                   </ListItem>
 
-                        />
-                    </ListItem>
+                    
                     <ListItem>
                         <Button type="submit" fullWidth variant="contained">
-                            Register
+                            Continue
                         </Button>
                     </ListItem>
-                    <ListItem>
-                        Already have account ?{' '}
-                        <NextLink href="/login" passHref><Link><Button variant="outlined">Login</Button></Link></NextLink>
-                    </ListItem>
+                    
                 </List>
 
             </form>

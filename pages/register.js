@@ -9,7 +9,7 @@ import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
 import  {Controller , useForm} from 'react-hook-form'
              
-export default function Login() {
+export default function Register() {
     const router = useRouter()
     const {redirect} = router.query;
     const {handleSubmit , control , formState : {errors }}= useForm();
@@ -53,7 +53,7 @@ export default function Login() {
                 <List>
                 <ListItem>
                        
-                       <Controller
+                Controller
                            name ="name"
                            control ={control}
                            defaultValue=""
@@ -67,10 +67,10 @@ export default function Login() {
                                variant="outlined" 
                                id="name" 
                                label="Name" 
-                               inputProps={{type : 'password'}}
-                               error = {Boolean(errors.password)}
-                               helperText={errors.password?
-                                           errors.password.type === 'minLength' ? 'Name length should be at least 2!!'             
+                               inputProps={{type : 'text'}}
+                               error = {Boolean(errors.name)}
+                               helperText={errors.name?
+                                           errors.name.type === 'minLength' ? 'Name length should be at least 2!!'             
                                            :
                                            "Name is required" 
                                        :

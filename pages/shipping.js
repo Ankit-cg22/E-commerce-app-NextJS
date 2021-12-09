@@ -17,8 +17,10 @@ export default function Shipping() {
     const {state, dispatch , } = useContext(Store)
 
     // if a already logged in user exists , direct him to home page 
-    const {userInfo , cart : {shippingData}}  = state
-
+    const {userInfo , cart}  = state
+    const {shippingData} = cart
+    console.log("ship ")
+    console.log(shippingData)
     useEffect(() => {
         if (!userInfo) {
           router.push('/login?redirect=/shipping');
@@ -31,10 +33,11 @@ export default function Shipping() {
       }, []);
 
 
-    const submitHandler=  ({name , adress , city , pinCode , country}) => {
+    const submitHandler=  ({name , address , city , pinCode , country}) => {
         
-        dispatch({type : "SAVE_SHIPPING_DATA" , payload : {name , adress , city , pinCode , country}} )
-        Cookies.set('shippingData' , {name , adress , city , pinCode , country})
+        dispatch({type : "SAVE_SHIPPING_DATA" , payload : {name , address , city , pinCode , country}} )
+        console.log({name , address , city , pinCode , country})
+        Cookies.set('shippingData' , {name , address , city , pinCode , country})
         router.push('/payment')
  
     }
@@ -81,13 +84,13 @@ export default function Shipping() {
                     
                 <ListItem>
                        
-                       <Controller
+                         <Controller
                            name ="address"
                            control ={control}
                            defaultValue=""
                            rules={{
                                required:true,
-                               minLength : 10
+                               minLength : 2
                            }}
                            render={({field}) => (
                                <TextField 
@@ -98,7 +101,7 @@ export default function Shipping() {
                                inputProps={{type : 'text'}}
                                error = {Boolean(errors.address)}
                                helperText={errors.address?
-                                           errors.address.type === 'minLength' ? 'Address length should be at least 10!!'             
+                                           errors.address.type === 'minLength' ? 'Address should be at least 2!!'             
                                            :
                                            "Address is required" 
                                        :

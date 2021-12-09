@@ -14,13 +14,12 @@ export default function Shipping() {
     const {redirect} = router.query;
     const {handleSubmit , control , formState : {errors } , setValue}= useForm();
 
-    const {state, dispatch , } = useContext(Store)
+    const {state, dispatch } = useContext(Store)
 
     // if a already logged in user exists , direct him to home page 
     const {userInfo , cart}  = state
     const {shippingData} = cart
-    console.log("ship ")
-    console.log(shippingData)
+   
     useEffect(() => {
         if (!userInfo) {
           router.push('/login?redirect=/shipping');
@@ -35,12 +34,12 @@ export default function Shipping() {
 
     const submitHandler=  ({name , address , city , pinCode , country}) => {
         
-        dispatch({type : "SAVE_SHIPPING_DATA" , payload : {name , address , city , pinCode , country}} )
-        console.log({name , address , city , pinCode , country})
+        dispatch({type : 'SAVE_SHIPPING_DATA' , payload : {name , address , city , pinCode , country} ,})
+  
         Cookies.set('shippingData' , {name , address , city , pinCode , country})
-        router.push('/payment')
+        router.push('/payment') 
  
-    }
+    }   
 
     return (
         <Layout>

@@ -16,4 +16,5 @@ handler.get(async(req , res) =>{
     res.send({message  :  "inserted data successfully"})
 })
 
+
 export default handler

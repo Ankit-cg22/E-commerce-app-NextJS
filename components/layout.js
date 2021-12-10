@@ -1,6 +1,6 @@
 import {React , useContext, useState} from 'react'
 import Head from 'next/head'
-import {AppBar, Container, Toolbar , Typography , Button, Badge, Menu,MenuItem } from '@material-ui/core'
+import {AppBar, Container, Toolbar , Typography , Button, Badge, Menu,MenuItem,InputBase, IconButton } from '@material-ui/core'
 import useStyles from '../utils/styles'
 import NextLink from 'next/link'
 import { Link } from '@material-ui/core'
@@ -8,16 +8,18 @@ import {Store} from '../utils/store'
 import Cookies from 'js-cookie'
 import {useRouter} from 'next/router'
 
+// import SearchIcon from '@mui/icons-material/Search';
+
 export default function Layout({children , title , description}) {
     const classes = useStyles()
     const {state , dispatch} = useContext(Store)
     const {cart ,userInfo} = state
     const [anchorEl , setAnchorEl]= useState(null)
     const router = useRouter()
-
+    const [searchQuery , setSearchQuery] = useState('')
 
     const userMenuClickHandler = (e) =>{
-        setAnchorEl(e.currentTarget)
+        setAnchorEl(e.currentTarget)    
     }
 
     const userMenuCloseHandler = () =>{
@@ -35,8 +37,14 @@ export default function Layout({children , title , description}) {
         router.push('/')
     }
 
+ 
+    const searchSubmitHandler = (e) =>{
+        e.preventDefault()
+        router.push(`/search?query=${searchQuery}`)
+    }
+
     return (
-        <div>
+        <div >
             <Head>
                 <title>{title ? {title} : "E-commerce"}</title>
                 {description &&  (
@@ -52,7 +60,27 @@ export default function Layout({children , title , description}) {
                         </Link>
                     </NextLink>
 
-                    <div className={classes.grow}></div>
+                    <div>
+                        <form className = {classes.searchForm} onSubmit={searchSubmitHandler} >
+                            <InputBase
+                                className = {classes.searchInput}
+                                name="searchQuery"
+                                placeholder='searchProducts'
+                                onChange = {e => setSearchQuery(e.target.value)}
+                            />
+                            <IconButton
+                                type="submit"
+                                aria-label="search"
+                                className = {classes.iconButton}
+
+                            >
+                                {/* <SearchIcon/> */}
+                                Search
+                            </IconButton>
+
+
+                        </form>
+                    </div>
 
                     <div>
                         <NextLink href="/cart" passHref>

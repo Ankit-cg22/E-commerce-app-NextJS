@@ -47,6 +47,8 @@ async function disconnect(){
 }
 
 function convertDocToObj(doc){
+    console.log("pp1")
+    console.log(doc._id)
     // we do this cause we faced problem in return data collected from mongo db in getServerSideProps
     doc._id = doc._id.toString()
     doc.createdAt = doc.createdAt.toString()

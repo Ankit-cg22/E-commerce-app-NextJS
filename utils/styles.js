@@ -2,6 +2,7 @@ import { makeStyles, withTheme } from "@material-ui/core";
 
 const useStyles = makeStyles({
     navbar: {
+     
         backgroundColor: '#203040',
         '& a': {
           color: '#ffffff',
@@ -28,7 +29,33 @@ const useStyles = makeStyles({
       section : {
         margin:"10px auto"
 
-      }
+      },
+      iconButton: {
+        backgroundColor: '#00000',
+        padding: 5,
+        borderRadius: '0 5px 5px 0',
+        '& span': {
+          color: '#000000',
+        }
+      },
+        searchInput: {
+          paddingLeft: 5,
+          color: '#000000',
+          '& ::placeholder': {
+            color: '#606060',
+          },
+        },
+        searchForm: {
+          border: '1px solid #ffffff',
+          backgroundColor: '#ffffff',
+          borderRadius: 5,
+        },
+        productItem : {
+          display:"flex",
+          margin:"2em 0"
+        }
+
+
 })
 
 export default useStyles;

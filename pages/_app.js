@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import {useEffect} from 'react'
 import { StoreProvider } from '../utils/store'
+import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 
 function MyApp({ Component, pageProps }) {
 
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <StoreProvider>
-      <Component {...pageProps} />
+      <PayPalScriptProvider deferLoading={true}>
+        <Component {...pageProps} />
+      </PayPalScriptProvider>
 
     </StoreProvider>
   )

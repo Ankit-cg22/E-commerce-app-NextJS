@@ -4,6 +4,7 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid
 
 import NextLink from 'next/link'
 import db  from '../utils/dbConnect'
+
 import ProductModel from '../models/Product'
 import {Rating} from '@material-ui/lab'
 import CarouselItem from '../components/carouselItem'

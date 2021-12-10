@@ -36,7 +36,7 @@ export default function Shipping() {
         
         dispatch({type : 'SAVE_SHIPPING_DATA' , payload : {name , address , city , pinCode , country} ,})
   
-        Cookies.set('shippingData' , {name , address , city , pinCode , country})
+        Cookies.set('shippingData' , {name:name , address:address , city:city , pinCode:pinCode, country:country})
         router.push('/payment') 
  
     }   

@@ -1,36 +1,79 @@
 import { Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Link,CircularProgress, List,ListItem , Button, Card} from '@material-ui/core'
-import React , {useContext , useEffect } from 'react'
-import Layout from '../components/layout'
-import { Store } from '../utils/store'
+import React , {useContext , useEffect,useState , useReducer} from 'react'
+import Layout from '../../components/layout'
+import { Store } from '../../utils/store'
 import NextLink from 'next/link'
 import Image from 'next/image'
 
 import {useRouter} from 'next/router'
-import ShoppingSteps from '../components/shoppingSteps'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-export default function PlaceOrder() {
+function reducer(state, action) {
+    switch (action.type) {
+      case 'FETCH_REQUEST':
+        return { ...state, loading: true, error: '' };
+      case 'FETCH_SUCCESS':
+        return { ...state, loading: false, order: action.payload, error: '' };
+      case 'FETCH_FAIL':
+        return { ...state, loading: false, error: action.payload };
+      default:
+        state;
+    }
+  }
+
+export default function OrderDetails({params}) {
+    const orderID = params.id;
+
     const [{isPending } , paypalDispatch] = usePayPalScriptReducer()
     const router = useRouter()
-    const {state , dispatch} = useContext(Store)
+    const {state } = useContext(Store)
     const {cart} = state
     const {userInfo} = state
-    const {cartItems} = cart
-    const {shippingData} = cart
-    const {paymentMethod} = cart
-    const totalItems = cartItems.reduce((a,c) => a + c.quantity, 0)
-    const totalItemPrice = cartItems.reduce((a,c) => a + c.quantity*c.price, 0)
-    const taxPrice = (totalItemPrice * 0.18)
-    const shippingPrice = totalItemPrice > 350 ? 0 : 20
-    const totalPrice = totalItemPrice+taxPrice+shippingPrice
+   
 
+
+    const [
+        { loading, error, order, },
+        dispatch,
+      ] = useReducer(reducer, {
+        loading: true,
+        order: {},
+        error: '',
+      });
+      console.log(order)
+      const{orderItems , shippingAddress ,paymentMethod,totalItems,
+        totalItemPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice} = order
+    
+    
     useEffect(() => {
-        if(!paymentMethod)
+        if(!userInfo)
         {
-            router.push('/payment')
+            return router.push('/login')
         }
+
+        const fetchOrder = async () => {
+            try{
+                dispatch({ type: 'FETCH_REQUEST' });
+                console.log(`/api/orders/${orderID}`)
+                const {data} = await axios.get(`/api/orders/${orderID}` ,
+                {
+                    headers: {
+                        authorization : `Bearer ${userInfo.token}`
+                    }
+                }
+                );
+                dispatch({ type: 'FETCH_SUCCESS', payload: data });
+            }catch(err){
+                alert("error")
+            }
+        }
+
+        fetchOrder()
 
         const loadPaypalScript = async () => {
             const { data: clientId } = await axios.get('/api/keys/paypal', {
@@ -91,39 +134,17 @@ export default function PlaceOrder() {
     alert("error")
   }
 
-  const handlePlaceOrderClick =async () => {
-      try{
-          const {data} = await axios.post(
-              '/api/orders',
-              {
-                orderItems : cartItems,
-                shippingAddress: shippingData,
-                paymentMethod,
-                itemsPrice: totalItemPrice,
-                shippingPrice,
-                taxPrice,
-                totalPrice  
-              },
-              {
-                  headers: {
-                      authorization : `Bearer ${userInfo.token}`
-                  }
-              }
-          )
-          dispatch({type:'CLEAR_CART'})
-          Cookies.remove('cartItems')
-          router.push(`/order/${data._id}`)
-      }catch(error){
-          alert(error.message)
-      }
-  }
-
+  
+  
     return (
         <Layout >
-            <ShoppingSteps activeStep={3}/>
-            <Typography componenet="h1" variant="h2">Order Report</Typography>
+            {loading ? 
+                (<CircularProgress/>)
+            :
+      
             
-            <Grid container spacing={1}>
+            (<Grid container spacing={1}>
+                <Typography component="h1" variant="h3">Order id : {order._id}</Typography>
                 <Grid item md={9} xs = {11}>
 
                     <Card>
@@ -133,11 +154,11 @@ export default function PlaceOrder() {
                             </ListItem>
                             <ListItem>
                                 <Typography>
-                                    {shippingData.name},
-                                    {shippingData.address},
-                                    {shippingData.city},
-                                    {shippingData.pinCode},
-                                    {shippingData.country}
+                                    {shippingAddress.name},
+                                    {shippingAddress.address},
+                                    {shippingAddress.city},
+                                    {shippingAddress.pinCode},
+                                    {shippingAddress.country}
                                 </Typography>
                             </ListItem>
                         </List>
@@ -169,7 +190,7 @@ export default function PlaceOrder() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {cartItems.map((item) => (
+                                {orderItems.map((item) => (
                                     <TableRow>
                                         <TableCell>
                                             <NextLink href={`/product/${item.slug}`} passHref>
@@ -220,11 +241,7 @@ export default function PlaceOrder() {
                         <Typography>
                             <strong>Total  : ${totalPrice}</strong>
                         </Typography>
-                        <Button fullWidth variant="contained" onClick={handlePlaceOrderClick} > 
-                            Place Order
-                        </Button>
-
-                       
+                        
                             {isPending ? (
                                 <CircularProgress />
                             ) : (
@@ -241,10 +258,20 @@ export default function PlaceOrder() {
                 </Grid>
 
             </Grid>
-     
+     )
 
+    }
         </Layout>
+
+        
     )
 }
 
-  
+export async function getServerSideProps({params})
+{
+    return {
+        props : {
+            params
+        }
+    }
+}

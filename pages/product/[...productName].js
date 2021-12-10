@@ -4,9 +4,10 @@ import useStyles from '../../utils/styles'
 import db from '../../utils/dbConnect'
 import ProductModel from '../../models/Product'
 
-export default function ProductDetails({productData}) {
+export default function ProductDetails({data}) {
 
     const classes = useStyles()
+    const productData = JSON.parse(data)
     console.log(productData)
     if(!productData)
     {
@@ -37,12 +38,11 @@ export async function getServerSideProps(context){
     await db.connect()
     const product = await ProductModel.findOne({slug : productName}).lean()
     await db.disconnect()
-    console.log("pp")
-    console.log(product)
+    const sendProduct = JSON.stringify(product)
     return {
       props : {
         // productData : db.convertDocToObj(product),
-        productData : (product),
+        data : sendProduct,
       }
     }
   }

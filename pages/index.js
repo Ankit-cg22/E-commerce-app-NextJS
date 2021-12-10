@@ -4,17 +4,25 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid
 
 import NextLink from 'next/link'
 import db  from '../utils/dbConnect'
-import convertDocToObj from '../utils/dbConnect'
-
 import ProductModel from '../models/Product'
+import {Rating} from '@material-ui/lab'
+import CarouselItem from '../components/carouselItem'
+import useStyles from '../utils/styles'
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 
 export default function Home({productData}) {
- 
+  const classes = useStyles()
   return (
      <Layout>
-
         <h1>E-commerce</h1> 
+
+          <Slide className={classes.carousel}>
+            {productData.map(item => <CarouselItem item={item}/>)}
+          </Slide>
+
         <Grid container spacing = {3}>
+       
           {productData.map((product) => (
             <Grid item md = {4} key = {product.name}>
                 <Card>
@@ -25,6 +33,8 @@ export default function Home({productData}) {
                         <Typography>
                           {product.name}
                         </Typography>
+                        <Rating readOnly value={product.rating}/>
+
                       </CardContent>
                       <CardActions>
                         <Typography>${product.price}</Typography>

@@ -15,11 +15,14 @@ export default function ProductPage({product}) {
     const {cart} = state
 
     const addToCartHandler = async () => {
-        const {data} = await axios.get(`duct/${product._id}`)
-
+        const {data} = await axios.get(`/api/product/${product._id}`)
+        
         // check if it already exists in the cart
         const currItem = state.cart.cartItems.find(item => item._id === product._id)
         const prevQuantity = currItem? currItem.quantity : 0;
+
+        console.log(data.stock)
+        console.log(prevQuantity+1)
 
         if(data.stock < prevQuantity + 1 )
         {

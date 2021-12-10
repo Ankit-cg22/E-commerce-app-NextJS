@@ -53,6 +53,12 @@ const useStyles = makeStyles({
         productItem : {
           display:"flex",
           margin:"2em 0"
+        },
+        corousalImage:{
+          minHeight:"2rem"
+        },
+        carousel:{
+          margin:"2rem 0"
         }
 
 

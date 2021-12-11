@@ -76,7 +76,7 @@ export default function AdminProducts() {
 
     return (
         <Layout>
-            <h1>Admin Orders </h1>
+            <h1>Admin  </h1>
             <Grid container spacing={1}>
                 <Grid item md = {3} xs ={12}>
                     <Paper>
@@ -102,8 +102,10 @@ export default function AdminProducts() {
                 </Grid>
                 <Grid item md = {9} xs ={12}>
                     <Paper>
-                        <Typography variant="h3" component="h1">Orders</Typography>
-
+                        <Typography variant="h3" component="h1">Products</Typography>
+                        <NextLink href="/admin/product/addProduct" passHref>
+                            <Button variant="contained">Add Product</Button>
+                        </NextLink>
                         {loading ? 
                             <CircularProgress/>
                         :

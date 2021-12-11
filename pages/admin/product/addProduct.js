@@ -8,7 +8,6 @@ import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios'
 import FileBase64 from 'react-file-base64';
 
-
 function reducer(state , action){
     switch(action.type){
         case 'FETCH_REQUEST' :
@@ -19,14 +18,12 @@ function reducer(state , action){
 }
 
 
-export default function AdminDashboard({data}) {
-    const productID = JSON.parse(data)
+export default function AdminDashboard() {
+   
     const router = useRouter()
     const {state } = useContext(Store)
     const {userInfo} = state
     const [image , setImage] = useState('')
-
-
     const {
         handleSubmit,
         control,
@@ -44,43 +41,14 @@ export default function AdminDashboard({data}) {
           {
               return router.push('/login')
           }
-
-          const fetchData = async () => {
-              try {
-                  dispatch({type : 'FETCH_REQUEST'})
-
-                  const {data} = await axios.get(`/api/admin/product/${productID}`,
-                  {
-                    headers: {
-                        authorization : `Bearer ${userInfo.token}`
-                    }
-                  }) 
-
-                  console.log("data")
-                  console.log(data)
-
-                  dispatch({type : 'FETCH_SUCCESS'})
-
-                  setValue('name' , data.name)
-                  setValue('brand' , data.brand)
-                  setValue('price' , data.price)
-                  setValue('category' , data.category)
-                  setValue('description' , data.description)
-                  setValue('slug' , data.slug)
-                  setValue('count' , data.stock)
-
-              } catch (error) {
-                  alert(error.data ? error.data.message : error.message)
-              }
-          }
-
-          fetchData()
       }, [])
 
       const submitHandler = async ({name , brand , price , category , description , slug , count }) =>{
+            const newProduct = {name , brand , price , category , description , slug , count ,image:image}
+
             try {
-                axios.put(`/api/admin/product/${productID}`,
-                {name , brand , price , category , description , slug , count ,image:image},
+                await axios.post(`/api/admin/product`,
+                newProduct,
                 {
                     headers: {
                         authorization : `Bearer ${userInfo.token}`
@@ -88,12 +56,14 @@ export default function AdminDashboard({data}) {
                 }
                 )
 
-                alert("Updated successfully ")
-                router.push('/admin/products')
+                alert("Added successfully ")
+                // router.push('/admin/products')
             } catch (error) {
                 alert(error.data ? error.data.message : error.message)
 
             }
+
+           
       }
 
     return (
@@ -127,10 +97,7 @@ export default function AdminDashboard({data}) {
                         <Typography variant="h3" component="h1">Products</Typography>
                         <List>
                             <ListItem>
-                                <Typography variant="h5">Product Edit </Typography>
-                            </ListItem>
-                            <ListItem>
-                                <Typography variant="h5">Product id : {productID}</Typography>
+                                <Typography>Add Product</Typography>
                             </ListItem>
                             <ListItem>
                                 <form onSubmit={handleSubmit(submitHandler)}>
@@ -341,7 +308,7 @@ export default function AdminDashboard({data}) {
 
                                         <ListItem>
                                             <Button fullWidth variant="contained" type="submit">
-                                                UPDATE
+                                                ADD PRODUCT
                                             </Button>
                                         </ListItem>
 
@@ -358,12 +325,4 @@ export default function AdminDashboard({data}) {
     )
 }
 
-export async function getServerSideProps(context){
-    const {params} = context
 
-    return {
-        props : {
-            data : JSON.stringify(params.productID)
-        }
-    }
-}

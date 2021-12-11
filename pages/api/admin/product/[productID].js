@@ -29,6 +29,7 @@ handler.put(async(req, res) => {
         product.description = req.body.description,
         product.slug = req.body.slug,
         product.stock = req.body.count,
+        product.image = req.body.image,
 
         await product.save();
         await db.disconnect()
@@ -55,5 +56,17 @@ handler.delete(async(req,res,next) => {
       res.status(404).send({message : "Product not found"})
     }
   })
+
+handler.post(async(req,res,next)=>{
+    await db.connect()
+    const addedProduct= new ProductModel({
+        ...req.body,
+        rating:0,
+        reviewsCount:0
+    })
+    const product = await addedProduct.save()
+    await db.disconnect()
+    res.send({message : "Product added"})
+})
 
 export default handler

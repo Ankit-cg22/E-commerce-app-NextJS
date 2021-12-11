@@ -54,6 +54,20 @@ export default function AdminOrders() {
 
     }, [])
 
+    const handleDeliverClick=async (productID)=>{
+        try{
+            await axios.put(`/api/admin/product/delivery/${productID}`,
+            {
+                headers: {
+                    authorization : `Bearer ${userInfo.token}`
+                }
+            })
+            router.push('/admin/orders')
+        }catch(error){
+            alert(error.data?  error.data.message : error.message)
+        }
+    }
+
 
     return (
         <Layout>
@@ -115,6 +129,7 @@ export default function AdminOrders() {
                                                         <NextLink href={`order/${order._id}`} passHref >
                                                             <Button variant="outlined">Details</Button>
                                                         </NextLink>
+                                                        {!order.isDelivered && <Button onClick={() => handleDeliverClick(order._id)} >Deliver</Button>}
 
                                                     </TableCell>
                                                 </TableRow>

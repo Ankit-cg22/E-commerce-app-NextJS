@@ -74,6 +74,7 @@ export default function AdminProducts() {
         }
     }
 
+    
     return (
         <Layout>
             <h1>Admin  </h1>
@@ -139,7 +140,6 @@ export default function AdminProducts() {
                                                         
                                                         <Button onClick={() => handleDeleteClick(product._id)}>Delete</Button>
     
-
                                                     </TableCell>
                                                 </TableRow>
                                             )

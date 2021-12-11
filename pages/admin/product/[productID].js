@@ -73,8 +73,23 @@ export default function AdminDashboard({data}) {
           fetchData()
       }, [])
 
-      const submitHandler = () =>{
-          
+      const submitHandler = async ({name , brand , price , category , description , slug , count }) =>{
+            try {
+                axios.put(`/api/admin/product/${productID}`,
+                {name , brand , price , category , description , slug , count },
+                {
+                    headers: {
+                        authorization : `Bearer ${userInfo.token}`
+                    }
+                }
+                )
+
+                alert("Updated successfully ")
+                router.push('/admin/products')
+            } catch (error) {
+                alert(error.data ? error.data.message : error.message)
+
+            }
       }
 
     return (

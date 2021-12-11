@@ -29,4 +29,13 @@ const isAuth = async (req,res,next) =>{
     }
 } 
 
-export {signToken , isAuth}
+const isAdmin = async(req, res , next)=>{
+    if(req.user.isAdmin)
+    {
+        next();
+    }else{
+        res.status(401).send({message : "Use is not admin !"})
+    }
+}
+
+export {signToken , isAuth , isAdmin}

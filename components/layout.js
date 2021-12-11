@@ -117,9 +117,10 @@ export default function Layout({children , title , description}) {
                             >
                             <MenuItem onClick={(e)=>userMenuCloseHandler(e,'/profile')}>Profile</MenuItem>
                             <MenuItem onClick={(e)=>userMenuCloseHandler(e,'/orderHistory')}>Order history</MenuItem>
+                            {userInfo.isAdmin && <MenuItem onClick={(e)=>userMenuCloseHandler(e,'/admin/dashboard')}>Admin Dashboard  </MenuItem>}
                             <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                             </Menu>
-                            
+                                
                         </>
                             :
                             <NextLink href="/login" passHref>

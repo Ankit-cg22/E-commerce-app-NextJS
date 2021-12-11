@@ -54,6 +54,25 @@ export default function AdminProducts() {
 
     }, [])
 
+    const handleDeleteClick =  async (productID) => {
+        if(!window.confirm('Confirm delete !'))
+        {
+            return 
+        }
+        
+
+        try{
+            await axios.delete(`/api/admin/product/${productID}`,
+            {
+                headers: {
+                    authorization : `Bearer ${userInfo.token}`
+                }
+            })
+            router.push('/admin/products')
+        }catch(error){
+            alert(error.data?  error.data.message : error.message)
+        }
+    }
 
     return (
         <Layout>
@@ -112,12 +131,12 @@ export default function AdminProducts() {
                                                     <TableCell>{product.stock}</TableCell>
                                                     <TableCell>{product.rating}</TableCell>
                                                     <TableCell>
-                                                        <NextLink href={`/admin/product/${product._id}`}>
+                                                        <NextLink href={`/admin/product/${product._id}`} >
                                                             <Button>Edit</Button>
                                                         </NextLink>
-                                                        <NextLink href="/">
-                                                            <Button>Delete</Button>
-                                                        </NextLink>
+                                                        
+                                                        <Button onClick={() => handleDeleteClick(product._id)}>Delete</Button>
+    
 
                                                     </TableCell>
                                                 </TableRow>

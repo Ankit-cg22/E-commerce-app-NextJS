@@ -15,7 +15,7 @@ function reducer(state , action){
 }
 
 
-export default function AdminOrders() {
+export default function AdminDashboard() {
     const router = useRouter()
     const {state } = useContext(Store)
     const {userInfo} = state

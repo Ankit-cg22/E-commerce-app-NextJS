@@ -15,7 +15,7 @@ function reducer(state , action){
 }
 
 
-export default function AdminOrders() {
+export default function AdminProducts() {
     const router = useRouter()
     const {state } = useContext(Store)
     const {userInfo} = state
@@ -96,7 +96,7 @@ export default function AdminOrders() {
                                             <TableCell>NAME</TableCell>
                                             <TableCell>PRICE</TableCell>
                                             <TableCell>CATEGORY</TableCell>
-                                            <TableCell>COUNT</TableCell>
+                                            <TableCell>STOCK COUNT</TableCell>
                                             <TableCell>RATING</TableCell>
                                             <TableCell>ACTION</TableCell>
                                         </TableRow>
@@ -112,7 +112,7 @@ export default function AdminOrders() {
                                                     <TableCell>{product.stock}</TableCell>
                                                     <TableCell>{product.rating}</TableCell>
                                                     <TableCell>
-                                                        <NextLink href="/">
+                                                        <NextLink href={`/admin/product/${product._id}`}>
                                                             <Button>Edit</Button>
                                                         </NextLink>
                                                         <NextLink href="/">

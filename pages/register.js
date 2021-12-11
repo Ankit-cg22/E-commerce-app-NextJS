@@ -16,8 +16,8 @@ export default function Register() {
 
     const {state, dispatch} = useContext(Store)
 
-    // if a already logged in user exists , direct him to home page 
     const {userInfo} = state
+    
     useEffect(() => {
         if (userInfo) {
           router.push('/');
@@ -53,7 +53,7 @@ export default function Register() {
                 <List>
                 <ListItem>
                        
-                Controller
+                    <Controller
                            name ="name"
                            control ={control}
                            defaultValue=""

@@ -22,8 +22,11 @@ export default function Layout({children , title , description}) {
         setAnchorEl(e.currentTarget)    
     }
 
-    const userMenuCloseHandler = () =>{
+    const userMenuCloseHandler = (e,redirect) =>{
         setAnchorEl(null)
+        if(redirect){
+            router.push(redirect)
+        }
     }
     
     const logoutClickHandler = () => {
@@ -112,8 +115,8 @@ export default function Layout({children , title , description}) {
                                 onClose={userMenuCloseHandler}
                                 keepMounted
                             >
-                            <MenuItem onClick={userMenuCloseHandler}>Profile</MenuItem>
-                            <MenuItem onClick={userMenuCloseHandler}>My account</MenuItem>
+                            <MenuItem onClick={(e)=>userMenuCloseHandler(e,'/profile')}>Profile</MenuItem>
+                            <MenuItem onClick={(e)=>userMenuCloseHandler(e,'/orderHistory')}>Order history</MenuItem>
                             <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                             </Menu>
                             

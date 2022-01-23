@@ -24,6 +24,7 @@ const data = {
             brand : "peter england",
             rating:4.5,
             reviewsCount : 10 ,
+            reviews: [] ,
             stock :20,
             description :"A very good shirt !"
 
@@ -38,6 +39,7 @@ const data = {
             brand : "nike",
             rating: 4,
             reviewsCount : 11 ,
+            reviews: [] ,
             stock :2,
             description :"A very good shirt !"
 
@@ -52,6 +54,7 @@ const data = {
             brand : "allen solly",
             rating:3.5,
             reviewsCount : 5 ,
+            reviews: [] ,
             stock :24,
             description :"A very good shirt !"
 
@@ -66,6 +69,7 @@ const data = {
             brand : "peter england",
             rating: 4.5,
             reviewsCount : 10 ,
+            reviews: [] ,
             stock : 10,
             description :"A very good pant !"
 
@@ -79,6 +83,7 @@ const data = {
             brand : "adidas",
             rating: 4,
             reviewsCount : 10 ,
+            reviews: [] ,
             stock :20,
             description :"A very good pant !"
 
@@ -92,6 +97,7 @@ const data = {
             brand : "peter england",
             rating: 2.5,
             reviewsCount : 14 ,
+            reviews: [] ,
             stock :0,
             description :"A very good jacket !"
 

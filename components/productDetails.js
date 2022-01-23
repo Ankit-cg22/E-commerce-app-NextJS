@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect , useState} from 'react'
 import NextLink from 'next/link'
 import Link from 'next/link'
 import useStyles from '../utils/styles'
@@ -7,10 +7,12 @@ import Image from 'next/image'
 import {useContext} from 'react'
 import {Store} from '../utils/store'
 import axios from 'axios'
+import Reviews from '../pages/Reviews'
 
 export default function ProductPage({product}) {
     const classes = useStyles()
-   const {state , dispatch} = useContext(Store)
+    const {state , dispatch} = useContext(Store)
+    const [avgRating , setAvgRating]=useState(0)
 
     const {cart} = state
 
@@ -33,6 +35,22 @@ export default function ProductPage({product}) {
         
         dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...product ,  quantity : prevQuantity+1}})
     }
+
+    useEffect(() => {
+        var ar = 0;
+
+        {product?.reviews.map( (r) => {
+            var r1 = parseInt(r.stars)
+            ar+=r1;
+        })}
+
+        var len = product?.reviews.length;
+
+        ar /= len;
+        ar = ar.toFixed(2);
+        setAvgRating(ar);
+    }, [])
+
     return (
     <div>
         
@@ -55,13 +73,12 @@ export default function ProductPage({product}) {
                         </ListItem>
                         <ListItem>Category :  {product.category}</ListItem>
                         <ListItem>Brand :  {product.brand}</ListItem>
-                        <ListItem>Rating :  {product.rating} ({product.reviewsCount} reviews)</ListItem>
+                        <ListItem>Rating :  {avgRating} ({product.reviews.length} reviews)</ListItem>
                         <ListItem>
                             <Typography>
                                 {product.description}
                             </Typography>
                         </ListItem>
-                        
                     </List>
                 </Grid>
 
@@ -82,6 +99,8 @@ export default function ProductPage({product}) {
                         </List>
                     </Card>
                 </Grid>
+
+                <Reviews product={product}/>
 
             </Grid>
     </div>

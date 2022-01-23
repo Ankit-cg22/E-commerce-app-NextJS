@@ -56,7 +56,7 @@ export default function Layout({children , title , description}) {
             </Head>
 
             <AppBar className = {classes.navbar} position = "static">
-                <Toolbar>
+                <Toolbar className = {classes.appBarSub} >
                     <NextLink href="/" passHref>
                         <Link >
                             <Typography className ={classes.brandName}>E-commerce</Typography>

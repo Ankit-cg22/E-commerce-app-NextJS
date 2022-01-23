@@ -19,20 +19,20 @@ export default function Register() {
     const {userInfo} = state
     
     useEffect(() => {
-        if (userInfo) {
+        if (userInfo)  {
           router.push('/');
         }
       }, []);
 
 
-    const submitHandler= async ({name, email , password, confirmPassword}) => {
+    const submitHandler= async ({ name, email , password, confirmPassword}) => {
         if(password !== confirmPassword)
         {
             alert("Passwords do not match !!")
             return 
         }
 
-        e.preventDefault();
+        // e.preventDefault();
         try{
             const {data} = await axios.post('/api/users/register' ,{ name , email , password})
             dispatch({type : "USER_LOGIN" , payload : data} )

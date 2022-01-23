@@ -8,6 +8,12 @@ const useStyles = makeStyles({
           color: '#ffffff',
           marginLeft: 10,
         },
+        
+      },
+      appBarSub: {
+        display:"flex",
+        flexDirection: "row",
+        justifyContent:"space-between"
       },
       main: {
         minHeight: '80vh',
@@ -59,6 +65,9 @@ const useStyles = makeStyles({
         },
         carousel:{
           margin:"2rem 0"
+        },
+        reviewContainer :{
+          margin:"10px"
         }
 
 

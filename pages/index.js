@@ -39,7 +39,6 @@ export default function Home({productData}) {
                       </CardContent>
                       <CardActions>
                         <Typography>${product.price}</Typography>
-                        <Button size ="small" >Add to card</Button>
                       </CardActions>
                      </CardActionArea>
                   </NextLink>

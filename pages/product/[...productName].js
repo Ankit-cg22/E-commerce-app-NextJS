@@ -2,7 +2,7 @@ import Layout from '../../components/layout'
 import ProductPage from '../../components/productDetails'
 import useStyles from '../../utils/styles'
 import db from '../../utils/dbConnect'
-import ProductModel from '../../models/Product'
+import ProductsModel from '../../models/Product'
 
 export default function ProductDetails({data}) {
 
@@ -36,7 +36,7 @@ export async function getServerSideProps(context){
     const {productName} = params
 
     await db.connect()
-    const product = await ProductModel.findOne({slug : productName}).lean()
+    const product = await ProductsModel.findOne({slug : productName}).lean()
     await db.disconnect()
     const sendProduct = JSON.stringify(product)
     return {

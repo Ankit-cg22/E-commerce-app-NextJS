@@ -1,6 +1,6 @@
 import React from 'react'
 import db from '../utils/dbConnect'
-import ProductModel from '../models/Product'
+import ProductsModel from '../models/Products'
 import Layout from '../components/layout'
 import { Typography } from '@material-ui/core'
 import ProductItem from '../components/productItem'
@@ -43,7 +43,7 @@ export async function getServerSideProps(context){
     const category = query.query
 
     const categoryFilter = {category}
-    const products = await ProductModel.find({...categoryFilter})
+    const products = await ProductsModel.find({...categoryFilter})
     const productsCount = products.length
     await db.disconnect()
 

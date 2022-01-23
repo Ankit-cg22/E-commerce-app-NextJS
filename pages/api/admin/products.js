@@ -1,5 +1,5 @@
 import nc from 'next-connect';
-import ProductModel from '../../../models/Product';
+import ProductsModel from '../../../models/Products';
 import { isAuth , isAdmin } from '../../../utils/auth';
 import db from '../../../utils/dbConnect';
 import { onError } from '../../../utils/error';
@@ -12,7 +12,7 @@ handler.use(isAuth , isAdmin);
 handler.get(async(req , res) =>{ 
    
   await db.connect()
-  const orders = await ProductModel.find({});
+  const orders = await ProductsModel.find({});
   await db.disconnect()
 
   res.send(orders)

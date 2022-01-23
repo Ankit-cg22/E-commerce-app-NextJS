@@ -1,5 +1,5 @@
 import nc from 'next-connect';
-import ProductModel from '../../../../models/Product'
+import ProductsModel from '../../../../models/Products'
 import { isAuth , isAdmin } from '../../../../utils/auth'
 import db from '../../../../utils/dbConnect'
 
@@ -9,7 +9,7 @@ handler.use(isAuth , isAdmin);
 handler.post(async(req,res,next)=>{
     console.log("ok")
     await db.connect()
-    const addedProduct= new ProductModel({
+    const addedProduct= new ProductsModel({
         ...req.body,
         rating:0,
         reviewsCount:0

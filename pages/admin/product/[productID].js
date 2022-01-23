@@ -68,6 +68,9 @@ export default function AdminDashboard({data}) {
                   setValue('description' , data.description)
                   setValue('slug' , data.slug)
                   setValue('count' , data.stock)
+                  setValue('image' , data.image)
+
+                
 
               } catch (error) {
                   alert(error.data ? error.data.message : error.message)
@@ -77,9 +80,9 @@ export default function AdminDashboard({data}) {
           fetchData()
       }, [])
 
-      const submitHandler = async ({name , brand , price , category , description , slug , count }) =>{
+      const submitHandler = async ({name , brand , price , category , description , slug , count ,  }) =>{
             try {
-                axios.put(`/api/admin/product/${productID}`,
+                await axios.put(`/api/admin/product/${productID}`,
                 {name , brand , price , category , description , slug , count ,image:image},
                 {
                     headers: {

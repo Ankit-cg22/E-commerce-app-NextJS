@@ -6,6 +6,24 @@ import {Rating} from '@material-ui/lab'
 
 export default function ProductItem({product}) {
     const classes = useStyles()
+
+    function avgRating(arr)
+    {
+      var ar = 0;
+  
+      {arr.map( (r) => {
+          var r1 = parseInt(r.stars)
+          ar+=r1;
+      })}
+  
+      var len = arr.length;
+  
+      ar /= len;
+      ar = ar.toFixed(2);
+      
+      return ar
+    }
+
     return (
         <Card className={classes.productItem}>
             <NextLink href={`/product/${product.slug}`} passHref>
@@ -25,7 +43,7 @@ export default function ProductItem({product}) {
                 <CardContent>
                         <Typography>{product.name}</Typography>
                         {/* // rating */}
-                        <Typography> <Rating readOnly value={product.rating}/> </Typography>
+                        <Typography> <Rating readOnly value={avgRating(product.reviews)}/> </Typography>
                     </CardContent>
                     
                 </CardActionArea>

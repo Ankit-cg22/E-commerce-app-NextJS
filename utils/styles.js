@@ -68,7 +68,27 @@ const useStyles = makeStyles({
         },
         reviewContainer :{
           margin:"10px"
-        }
+        },
+        paginationBar : {
+          width: "80%",
+          height: "1rem",
+          listStyle : "none",
+          display : "flex",
+          justifyContent:"center",
+          '& a':{
+            border : "2px solid grey",
+            cursor : "pointer",
+            fontSize : "2rem",
+            padding:"5px",
+            margin:"10px",
+            color:"#203040",
+            fontWeight : "bold",
+            borderRadius:"5px"
+          },
+          margin:"50px"
+
+        },
+
 
 
 })

@@ -26,6 +26,23 @@ export default function AdminProducts() {
         error : ""
     } )
 
+    function avgRating(arr)
+    {
+      var ar = 0;
+  
+      {arr.map( (r) => {
+          var r1 = parseInt(r.stars)
+          ar+=r1;
+      })}
+  
+      var len = arr.length;
+  
+      ar /= len;
+      ar = ar.toFixed(2);
+      
+      return ar
+    }
+
     useEffect(() => {
         if(!userInfo){
             router.push('/login')
@@ -132,7 +149,7 @@ export default function AdminProducts() {
                                                     <TableCell>${product.price}</TableCell>
                                                     <TableCell>{product.category}</TableCell>
                                                     <TableCell>{product.stock}</TableCell>
-                                                    <TableCell>{product.rating}</TableCell>
+                                                    <TableCell>{avgRating(product.reviews)}</TableCell>
                                                     <TableCell>
                                                         <NextLink href={`/admin/product/${product._id}`} >
                                                             <Button>Edit</Button>

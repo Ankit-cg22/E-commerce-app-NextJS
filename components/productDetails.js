@@ -12,8 +12,6 @@ import Reviews from '../pages/Reviews'
 export default function ProductPage({product}) {
     const classes = useStyles()
     const {state , dispatch} = useContext(Store)
-    const [avgRating , setAvgRating]=useState(0)
-
     const {cart} = state
 
     const addToCartHandler = async () => {
@@ -36,20 +34,22 @@ export default function ProductPage({product}) {
         dispatch({ type : 'CART_ADD_PRODUCT' , payload: {...product ,  quantity : prevQuantity+1}})
     }
 
-    useEffect(() => {
-        var ar = 0;
-
-        {product?.reviews.map( (r) => {
-            var r1 = parseInt(r.stars)
-            ar+=r1;
-        })}
-
-        var len = product?.reviews.length;
-
-        ar /= len;
-        ar = ar.toFixed(2);
-        setAvgRating(ar);
-    }, [])
+    function avgRating(arr)
+    {
+      var ar = 0;
+  
+      {arr.map( (r) => {
+          var r1 = parseInt(r.stars)
+          ar+=r1;
+      })}
+  
+      var len = arr.length;
+  
+      ar /= len;
+      ar = ar.toFixed(2);
+      
+      return ar
+    }
 
     return (
     <div>
@@ -73,7 +73,7 @@ export default function ProductPage({product}) {
                         </ListItem>
                         <ListItem>Category :  {product.category}</ListItem>
                         <ListItem>Brand :  {product.brand}</ListItem>
-                        <ListItem>Rating :  {avgRating} ({product.reviews.length} reviews)</ListItem>
+                        <ListItem>Rating :  {avgRating(product.reviews)} ({product.reviews.length} reviews)</ListItem>
                         <ListItem>
                             <Typography>
                                 {product.description}

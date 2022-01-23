@@ -1,5 +1,5 @@
 import nc from 'next-connect';
-import ProductModel from '../../../../models/Product'
+import ProductsModel from '../../../../models/Products'
 import { isAuth , isAdmin } from '../../../../utils/auth'
 import db from '../../../../utils/dbConnect'
 
@@ -10,7 +10,7 @@ handler.use(isAuth , isAdmin);
 handler.get(async(req , res) =>{ 
    
   await db.connect()
-  const product = await ProductModel.findById(req.query.productID);
+  const product = await ProductsModel.findById(req.query.productID);
   await db.disconnect()
 
   res.send(product)
@@ -18,8 +18,9 @@ handler.get(async(req , res) =>{
 
 handler.put(async(req, res) => {
     await db.connect()
-    
-    const product = await ProductModel.findById(req.query.productID);
+
+    const product = await ProductsModel.findById(req.query.productID);
+ 
 
     if(product){
         product.name = req.body.name,
@@ -30,12 +31,16 @@ handler.put(async(req, res) => {
         product.slug = req.body.slug,
         product.stock = req.body.count,
         product.image = req.body.image,
+        console.log(product)
 
-        await product.save();
+        const update = await ProductsModel.findByIdAndUpdate(req.query.productID , product )
+        // await product.save();
+
         await db.disconnect()
         res.send({message : "Product updated successfully"})
-    }else{
+      }else{
         await db.disconnect()
+
         res.send({message : "Product update failed!"})
     }
 
@@ -43,7 +48,7 @@ handler.put(async(req, res) => {
 
 handler.delete(async(req,res,next) => {
     await db.connect()
-    const product = await ProductModel.findById(req.query.productID)
+    const product = await ProductsModel.findById(req.query.productID)
     if(product)
     {
       await product.remove()
@@ -59,7 +64,7 @@ handler.delete(async(req,res,next) => {
 
 handler.post(async(req,res,next)=>{
     await db.connect()
-    const addedProduct= new ProductModel({
+    const addedProduct= new ProductsModel({
         ...req.body,
         rating:0,
         reviewsCount:0

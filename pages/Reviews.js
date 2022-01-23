@@ -20,8 +20,12 @@ export default function Reviews({product}) {
         
         try {
             const {data} =await axios.post(`/api/reviews/${product._id}` , newReview)
-            console.log("update")
-            console.log(data);
+            
+            setReviewStars(0)
+            setReviewText(0);
+            
+            alert("Thanks for the review ! Refresh page to see changes!")
+
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +48,7 @@ export default function Reviews({product}) {
                         fullWidth
                         rows={1}
                         variant="outlined"
-                        label="reviewText"
+                        label="Write some review .."
                         multiline
                         value={reviewText}
                         onChange={(e) => setReviewText(e.target.value)}

@@ -24,11 +24,11 @@ export default function Shipping() {
         if (!userInfo) {
           router.push('/login?redirect=/shipping');
         }
-        setValue('name' , shippingData.name)
-        setValue('address' , shippingData.address)
-        setValue('city' , shippingData.city)
-        setValue('pinCode' , shippingData.pinCode)
-        setValue('country' , shippingData.country)
+        setValue('name' , shippingData?.name)
+        setValue('address' , shippingData?.address)
+        setValue('city' , shippingData?.city)
+        setValue('pinCode' , shippingData?.pinCode)
+        setValue('country' , shippingData?.country)
       }, []);
 
 

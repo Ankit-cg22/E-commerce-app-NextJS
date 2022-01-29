@@ -44,7 +44,7 @@ export default function Shipping() {
     return (
         <Layout>
             <ShoppingSteps activeStep={1}/>
-            <form onSubmit = {handleSubmit(submitHandler)}>
+            <form onSubmit = {handleSubmit(submitHandler)} style ={{width:"80%" , margin:"auto"}}>
                 <Typography component="h1" variant="h2">
                     Shipping Details
                 </Typography>

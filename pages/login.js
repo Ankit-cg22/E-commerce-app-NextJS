@@ -39,7 +39,7 @@ export default function Login() {
 
     return (
         <Layout>
-            <form onSubmit = {handleSubmit(submitHandler)}>
+            <form onSubmit = {handleSubmit(submitHandler)} style={{width:"80%" , margin:"auto"}}>
                 <Typography component="h1" variant="h2">
                     Login
                 </Typography>
@@ -115,7 +115,7 @@ export default function Login() {
                     </ListItem>
                     <ListItem>
                         Don't have account ?{' '}
-                        <NextLink href="/register" passHref><Link><Button variant="outlined">Register</Button></Link></NextLink>
+                        <NextLink href="/register" passHref><Link><Button variant="contained">Register</Button></Link></NextLink>
                     </ListItem>
                 </List>
 

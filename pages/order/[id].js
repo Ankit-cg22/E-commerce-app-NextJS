@@ -1,4 +1,4 @@
-import { Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Link,CircularProgress, List,ListItem , Button, Card} from '@material-ui/core'
+import { Table , Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Link,CircularProgress, List,ListItem , Button, Card} from '@material-ui/core'
 import React , {useContext , useEffect,useState , useReducer} from 'react'
 import Layout from '../../components/layout'
 import { Store } from '../../utils/store'
@@ -9,6 +9,7 @@ import {useRouter} from 'next/router'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import useStyles from '../../utils/styles'
 
 function reducer(state, action) {
     switch (action.type) {
@@ -32,7 +33,7 @@ export default function OrderDetails({params}) {
     const {cart} = state
     const {userInfo} = state
    
-
+    const classes= useStyles();
 
     const [
         { loading, error, order, },
@@ -55,6 +56,7 @@ export default function OrderDetails({params}) {
         {
             return router.push('/login')
         }
+
 
         const fetchOrder = async () => {
             try{
@@ -144,13 +146,13 @@ export default function OrderDetails({params}) {
       
             
             (<Grid container spacing={1}>
-                <Typography component="h1" variant="h3">Order id : {order._id}</Typography>
+                <Typography component="h1" variant="h4" className={classes.orderTitle}>Order id : {order._id}</Typography>
                 <Grid item md={9} xs = {11}>
 
-                    <Card>
+                    <Card style={{marginBottom:"10px" , borderBottom:"1px solid grey" , width:"80%" }}>
                         <List>
                             <ListItem>
-                                <Typography variant="h6">Shipping Address</Typography>
+                                <Typography variant="h6" style={{borderBottom:"1px solid grey"}}>Shipping Address</Typography>
                             </ListItem>
                             <ListItem>
                                 <Typography>
@@ -164,10 +166,10 @@ export default function OrderDetails({params}) {
                         </List>
                     </Card>
 
-                    <Card>
+                    <Card style={{marginBottom:"10px" , borderBottom:"1px solid grey" , width:"80%" }}>
                         <List>
                             <ListItem>
-                                <Typography variant="h6">Payment Method</Typography>
+                                <Typography variant="h6" style={{borderBottom:"1px solid grey"}}>Payment Method</Typography>
                             </ListItem>
                             <ListItem>
                                 <Typography>
@@ -178,15 +180,23 @@ export default function OrderDetails({params}) {
                     </Card>
 
 
-                    <Card>
-                        <Typography variant="h6">Orderd Items</Typography>
+                    <Card style={{marginBottom:"10px" , borderBottom:"1px solid grey" , width:"80%" }}>
+                        <List>
+                        <ListItem>
+                            <Typography variant="h6" style={{borderBottom:"1px solid grey"}}>Orderd Items</Typography>
+                        </ListItem>
+
+                        <ListItem>
+
                         <TableContainer fullWidth>
+                            <Table>
+
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Image</TableCell>
                                     <TableCell>Name</TableCell>
-                                    <TableCell align="right">Quantity</TableCell>
-                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="center">Quantity</TableCell>
+                                    <TableCell align="center">Price</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -209,7 +219,7 @@ export default function OrderDetails({params}) {
                                         <TableCell  align="center">
                                             <Typography>{item.quantity}</Typography>
                                         </TableCell>
-                                        <TableCell  align="right">
+                                        <TableCell  align="center">
                                             <Typography>
                                                 ${item.price}
                                             </Typography>
@@ -218,7 +228,12 @@ export default function OrderDetails({params}) {
                                     </TableRow>
                                 ))}
                             </TableBody>
+                            </Table>
                         </TableContainer>
+                        </ListItem>
+                                
+                        </List>
+
                     </Card> 
                 </Grid>
 

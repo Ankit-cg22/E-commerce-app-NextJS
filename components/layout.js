@@ -24,7 +24,7 @@ export default function Layout({children , title , description}) {
 
     const userMenuCloseHandler = (e,redirect) =>{
         setAnchorEl(null)
-        if(redirect){
+        if(redirect != "backdropClick"){
             router.push(redirect)
         }
     }
@@ -68,7 +68,7 @@ export default function Layout({children , title , description}) {
                             <InputBase
                                 className = {classes.searchInput}
                                 name="searchQuery"
-                                placeholder='searchProducts'
+                                placeholder='Search Products'
                                 onChange = {e => setSearchQuery(e.target.value)}
                             />
                             <IconButton
@@ -103,6 +103,7 @@ export default function Layout({children , title , description}) {
                                 aria-controls="simple-menu"
                                 aria-haspopup="true"
                                 onClick={userMenuClickHandler}
+                                className={classes.navBarUserName}
                             >
                                 {userInfo.name}
                             </Button>

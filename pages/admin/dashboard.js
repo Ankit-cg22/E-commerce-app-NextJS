@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Store } from '../../utils/store'
 import { Grid, List, ListItem, Paper, Typography } from '@material-ui/core'
 import NextLink from 'next/link'
+import axios from 'axios'
 
 function reducer(state , action){
     switch(action.type){
@@ -19,13 +20,7 @@ export default function AdminDashboard() {
     const router = useRouter()
     const {state } = useContext(Store)
     const {userInfo} = state
-
-    const [{loading , error , summary} , dispatch] = useReducer(reducer , {
-        loading : true,
-        summary : {salesData: []},
-        error : ""
-    } )
-
+    
     useEffect(() => {
         if(!userInfo){
             router.push('/login')
@@ -33,15 +28,20 @@ export default function AdminDashboard() {
 
         // const fetchData = async () =>{
         //     try {
-        //         // dispatch({type : 'FETCH_REQUEST' })
+        //         dispatch({type : 'FETCH_REQUEST' })
+                
+        //         const {data} = await axios.get(`/api/admin/products` ,
+        //         {
+        //             headers: {
+        //                 authorization : `Bearer ${userInfo.token}`
+        //             }
+        //         }
+        //         );
 
-        //         // call for api 
-        //         // const {data} = api 
-
-        //         // dispatch({type : 'FETCH_SUCCESS' , payload : data })
+        //         dispatch({type : 'FETCH_SUCCESS' , payload : data })
         //     } catch (error) {
                 
-        //         alert("error")
+        //         alert(error.data?  error.data.message : error.message)
         //     }
         // }
 
@@ -77,8 +77,14 @@ export default function AdminDashboard() {
                     </Paper>
                 </Grid>
                 <Grid item md = {9} xs ={12}>
-                    <Paper>
+                    <Paper style={{borderBottom:"1px solid grey" , marginBottom:"10px"}}>
                         <Typography variant="h3" component="h1">Dashboard</Typography>
+                    </Paper>
+                    <Paper style={{padding:"10px"}}>
+                        <Typography> Welcome Admin {userInfo?.name} .</Typography>
+                        <Typography> This is your dashboard .</Typography>
+                        <Typography> Here you can view orders received by you .</Typography>
+                        <Typography> Here you can access the products listed by you . You can add new products , remove products and edit existing products.</Typography>
                     </Paper>
                 </Grid>
 

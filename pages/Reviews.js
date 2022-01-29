@@ -14,17 +14,20 @@ export default function Reviews({product}) {
 
     const [reviewStars , setReviewStars]  = useState(0);
     const [reviewText , setReviewText] =useState('')
-    const [reviews , setReviews] = useState([])
+    const [reviews , setReviews] = useState(product.reviews.reverse())
+
     const reviewSubmitHandler = async () => {
         const newReview = {  name : userInfo.name ,stars : reviewStars , review : reviewText}
         
         try {
             const {data} =await axios.post(`/api/reviews/${product._id}` , newReview)
-            
+
+            const reviews1 = data.reviews.reverse();
+            setReviews(data.reviews)
+
             setReviewStars(0)
-            setReviewText(0);
+            setReviewText("");
             
-            alert("Thanks for the review ! Refresh page to see changes!")
 
         } catch (error) {
             console.log(error);
@@ -32,9 +35,6 @@ export default function Reviews({product}) {
         
     }
 
-    useEffect(() => {
-        setReviews(product.reviews)
-    }, [])
 
     return (
         <div className={classes.reviewContainer}>
@@ -67,9 +67,9 @@ export default function Reviews({product}) {
         
             <Typography variant = "h4" gutterbuttom>Reviews</Typography>
 
-            {reviews.map((r, i) => {
+            {reviews?.map((r, i) => {
                 return (
-                    <div key={i}>
+                    <div className={classes.indReview} key={i}>
                         <h3>{ r.name} </h3>
                         <Rating value={r.stars} readOnly/>
                         <Typography variant="h6">{r.review}</Typography>

@@ -151,11 +151,11 @@ export default function AdminProducts() {
                                                     <TableCell>{product.stock}</TableCell>
                                                     <TableCell>{avgRating(product.reviews)}</TableCell>
                                                     <TableCell>
-                                                        <NextLink href={`/admin/product/${product._id}`} >
-                                                            <Button>Edit</Button>
+                                                        <NextLink  href={`/admin/product/${product._id}`} >
+                                                            <Button variant="contained" style={{marginRight:"4px"}}>Edit</Button>
                                                         </NextLink>
                                                         
-                                                        <Button onClick={() => handleDeleteClick(product._id)}>Delete</Button>
+                                                        <Button onClick={() => handleDeleteClick(product._id)} variant="contained">Delete</Button>
     
                                                     </TableCell>
                                                 </TableRow>

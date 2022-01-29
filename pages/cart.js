@@ -1,4 +1,4 @@
-import { Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Link, Select, MenuItem , Button, Card} from '@material-ui/core'
+import { Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Link, Select, MenuItem , Button, Card, Table} from '@material-ui/core'
 import React , {useContext} from 'react'
 import Layout from '../components/layout'
 import { Store } from '../utils/store'
@@ -6,12 +6,13 @@ import NextLink from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
 import {useRouter} from 'next/router'
+import useStyles from '../utils/styles'
 
 export default function Cart() {
     const {state , dispatch} = useContext(Store)
     const {cart : {cartItems}} = state
     const router = useRouter()
-
+    const classes = useStyles();
     const updateQuantityHandler = async (item, quantity) => {
         const {data} = await axios.get(`/api/product/${item._id}`)
         if(data.stock < quantity )
@@ -47,8 +48,9 @@ export default function Cart() {
 
             <Grid container spacing={1}>
                 <Grid item md={9} xs = {11}>
-                    <TableContainer fullWidth>
-                        <TableHead>
+                    <TableContainer >
+                        <Table className={classes.cartTable}>
+                        <TableHead >
                             <TableRow>
                                 <TableCell>Image</TableCell>
                                 <TableCell>Name</TableCell>
@@ -97,6 +99,7 @@ export default function Cart() {
                                 </TableRow>   
                             ))}
                         </TableBody>
+                        </Table>
                     </TableContainer>
                 </Grid>
 

@@ -46,7 +46,7 @@ export default function Register() {
 
     return (
         <Layout>
-            <form onSubmit = {handleSubmit(submitHandler)}>
+            <form onSubmit = {handleSubmit(submitHandler)} style={{width:"80%" , margin:"auto"}}>
                 <Typography component="h1" variant="h2">
                     Register
                 </Typography>
@@ -184,7 +184,7 @@ export default function Register() {
                     </ListItem>
                     <ListItem>
                         Already have account ?{' '}
-                        <NextLink href="/login" passHref><Link><Button variant="outlined">Login</Button></Link></NextLink>
+                        <NextLink href="/login" passHref><Link><Button variant="contained" >Login</Button></Link></NextLink>
                     </ListItem>
                 </List>
 

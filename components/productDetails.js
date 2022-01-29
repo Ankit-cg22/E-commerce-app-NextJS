@@ -54,8 +54,8 @@ export default function ProductPage({product}) {
     return (
     <div>
         
-            <div className={classes.section}>
-                <NextLink href="/" passHref>
+            <div className={classes.BackHomesection}>
+                <NextLink href="/" passHref >
                         Back home
                 </NextLink>
             </div>

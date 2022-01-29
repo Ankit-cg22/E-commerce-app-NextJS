@@ -22,7 +22,7 @@ export default function ProductDetails({data}) {
         
         // <Layout title={productData.name} description ={productData.description.toString()}>
         <Layout > 
-            <div class={classes.mainContentSection}>
+            <div className={classes.mainContentSection}>
                 <ProductPage product={productData}/>
             </div>
         </Layout>

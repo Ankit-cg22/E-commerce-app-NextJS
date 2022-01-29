@@ -61,8 +61,8 @@ function reducer(state, action){
                 cart : {...state.cart , paymentMethod : action.payload}
             }
         };
-        case 'CART_CLEAR' :{
-            return {...state , cart : {...state.cart , cartItems:[] , shippingData:[] , paymentMethod:[]}}
+        case 'CLEAR_CART' :{
+            return {...state , cart : {...state.cart , cartItems:[] }}
         }
     }
 }

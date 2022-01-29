@@ -30,7 +30,7 @@ export default function Payment() {
     return (
         <Layout>
             <ShoppingSteps activeStep={2} />
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} style={{width:"60%" , margin:"auto"}}>
                 <Typography variant='h2' component='h1'>Payment method</Typography>
                 <List>
                     <ListItem>
@@ -42,7 +42,6 @@ export default function Payment() {
                                 onChange={(e) => setPaymentMethod(e.target.value)}
                             >
                                 <FormControlLabel label="Paypal" value="PayPal" control={<Radio/>}/>
-                                <FormControlLabel label="Stripe" value="Stripe" control={<Radio/>}/>
                                 <FormControlLabel label="Cash on delivery" value="Cash on delivery" control={<Radio/>}/>
 
                             </RadioGroup>

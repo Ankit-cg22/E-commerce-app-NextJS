@@ -30,6 +30,7 @@ export default function AdminOrders() {
         if(!userInfo){
             router.push('/login')
         }
+  
 
         const fetchData = async () =>{
             try {
@@ -51,6 +52,8 @@ export default function AdminOrders() {
         }
 
         fetchData()
+
+        console.log(orders)
 
     }, [])
 
@@ -120,16 +123,16 @@ export default function AdminOrders() {
                                             return (
                                                 <TableRow key={order._id}>
                                                     <TableCell>{order._id.substring(20,24)}</TableCell>
-                                                    <TableCell>{order.user.name}</TableCell>
+                                                    <TableCell>{order.shippingAddress.name}</TableCell>
                                                     <TableCell>{order.createdAt}</TableCell>
                                                     <TableCell>${order.totalPrice}</TableCell>
                                                     <TableCell>{order.isPaid ? "Paid" : "Not paid"}</TableCell>
                                                     <TableCell>{order.isDelivered ? "Delivered" : "Not delivered"}</TableCell>
                                                     <TableCell>
-                                                        <NextLink href={`order/${order._id}`} passHref >
-                                                            <Button variant="outlined">Details</Button>
+                                                        <NextLink href={`../order/${order._id}`} passHref >
+                                                            <Button variant="contained">Details</Button>
                                                         </NextLink>
-                                                        {!order.isDelivered && <Button onClick={() => handleDeliverClick(order._id)} >Deliver</Button>}
+                                                        {!order.isDelivered && <Button style={{marginLeft:"4px"}} variant="contained" onClick={() => handleDeliverClick(order._id)} >Deliver</Button>}
 
                                                     </TableCell>
                                                 </TableRow>

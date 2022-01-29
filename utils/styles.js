@@ -32,9 +32,10 @@ const useStyles = makeStyles({
       },
       mainContentSection : {
       },
-      section : {
-        margin:"10px auto"
-
+      BackHomesection : {
+        margin:"10px auto",
+        color : "blue",
+        textDecoration : "underline"
       },
       iconButton: {
         backgroundColor: '#00000',
@@ -88,6 +89,21 @@ const useStyles = makeStyles({
           margin:"50px"
 
         },
+        navBarUserName:{
+          color:"white"
+        },
+        indReview:{
+          margin:"2px",
+          borderBottom :"1px solid grey"
+        },
+        cartTable :{
+          width:"80%",
+          margin:"auto"
+        },
+        orderTitle:{
+          margin:"20px",
+          borderBottom:"1px solid grey"          
+        }
 
 
 

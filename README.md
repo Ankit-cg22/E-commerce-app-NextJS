@@ -39,8 +39,31 @@
 
 <h2> How to run locally </h2>
 
-!
+```
+ $ git clone https://github.com/Ankit-cg22/E-commerce-app-NextJS
+  
+ $ cd E-commerce-app-NextJS
+```
 
+- Create a .env file .
+```
+  DB_URL= <set url>
+  
+  JWT_SECRET= <set secret>
+  
+  PAYPAL_CLIENT_ID=<set paypal client id>
+```
+
+- Run the following url to get some demo data
+ ```
+    http://localhost:3000/api/seed
+ ```
+
+- Run app on following url
+
+```
+ http://localhost:3000/
+```
 
 <h2>Author</h2>
 

@@ -9,12 +9,11 @@ const handler = nc()
 
 handler.put(async(req, res) => {
     await db.connect()
-    console.log(req.query.productID)
+    
     const product = await Order.findById(req.query.productID);
-    console.log(product)
+
     if(product){
         product.isDelivered = true
-    console.log(product)
         
         await product.save();
         await db.disconnect()

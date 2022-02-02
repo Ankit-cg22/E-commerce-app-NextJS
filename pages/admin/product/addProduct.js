@@ -44,7 +44,8 @@ export default function AdminDashboard() {
       }, [])
 
       const submitHandler = async ({name , brand , price , category , description , slug , count }) =>{
-            const newProduct = {name , brand , price , category , description , slug , count ,image:image}
+            category = category.toLowerCase() 
+            const newProduct = {name , brand , price ,category , description , slug , count ,image:image}
 
             try {
                 await axios.post(`/api/admin/product`,
@@ -57,7 +58,7 @@ export default function AdminDashboard() {
                 )
 
                 alert("Added successfully ")
-                // router.push('/admin/products')
+                router.push('/admin/products')
             } catch (error) {
                 alert(error.data ? error.data.message : error.message)
 

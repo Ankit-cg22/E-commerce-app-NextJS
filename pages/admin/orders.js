@@ -58,6 +58,10 @@ export default function AdminOrders() {
     }, [])
 
     const handleDeliverClick=async (productID)=>{
+        if(!window.confirm('Confirm delivery !'))
+        {
+            return 
+        }
         try{
             await axios.put(`/api/admin/product/delivery/${productID}`,
             {
@@ -65,12 +69,32 @@ export default function AdminOrders() {
                     authorization : `Bearer ${userInfo.token}`
                 }
             })
+            console.alert("Action successful ! Refresh page to see changes!")
+
             router.push('/admin/orders')
         }catch(error){
             alert(error.data?  error.data.message : error.message)
         }
     }
 
+    const handlePaidClick=async (productID)=>{
+        if(!window.confirm('Confirm payment!'))
+        {
+            return 
+        }
+        try{
+            await axios.put(`/api/admin/product/paid/${productID}`,
+            {
+                headers: {
+                    authorization : `Bearer ${userInfo.token}`
+                }
+            })
+            alert("Action successful ! Refresh page to see changes!")
+            router.push('/admin/orders')
+        }catch(error){
+            alert(error.data?  error.data.message : error.message)
+        }
+    }
 
     return (
         <Layout>
@@ -132,7 +156,8 @@ export default function AdminOrders() {
                                                         <NextLink href={`../order/${order._id}`} passHref >
                                                             <Button variant="contained">Details</Button>
                                                         </NextLink>
-                                                        {!order.isDelivered && <Button style={{marginLeft:"4px"}} variant="contained" onClick={() => handleDeliverClick(order._id)} >Deliver</Button>}
+                                                        {!order.isDelivered && <Button style={{marginLeft:"5px"}} variant="contained" onClick={() => handleDeliverClick(order._id)} >Deliver</Button>}
+                                                        {!order.isPaid && <Button style={{margin:"5px"}} variant="contained" onClick={() => handlePaidClick(order._id)} >Confirm Payment</Button>}
 
                                                     </TableCell>
                                                 </TableRow>

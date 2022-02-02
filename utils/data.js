@@ -13,91 +13,79 @@ const data = {
           password: bcrypt.hashSync('123456'),
           isAdmin: false,
         },
-      ],
+      ], 
     products : [
         {
-            name : "Shirt 1",
+            name : "Peter England White Shirt",
             slug : "shirt-1",
             category : "shirt",
             image:"/images/shirt1.jpg",
             price : 200,
-            brand : "peter england",
-            rating:4.5,
-            reviewsCount : 10 ,
+            brand : "Peter England",
             reviews: [] ,
             stock :20,
             description :"A very good shirt !"
 
         },
         {
-            name : "Shirt 2",
+            name : "Nike Shirt",
             slug : "shirt-2",
 
             category : "shirt",
             image:"/images/shirt2.jpg",
             price : 250,
-            brand : "nike",
-            rating: 4,
-            reviewsCount : 11 ,
+            brand : "Nike",
             reviews: [] ,
             stock :2,
             description :"A very good shirt !"
 
         },
         {
-            name : "Shirt 3",
+            name : "Shirt",
             slug : "shirt-3",
 
             category : "shirt",
             image:"/images/shirt3.jpg",
             price : 200,
-            brand : "allen solly",
-            rating:3.5,
-            reviewsCount : 5 ,
+            brand : "Allen Solly",
             reviews: [] ,
             stock :24,
             description :"A very good shirt !"
 
         },
         {
-            name : "Pant 1",
+            name : "Denim Pant",
             slug : "pant-1",
 
             category : "pant",
             image:"/images/pant1.jpg",
             price : 170 ,
-            brand : "peter england",
-            rating: 4.5,
-            reviewsCount : 10 ,
+            brand : "Peter England",
             reviews: [] ,
             stock : 10,
             description :"A very good pant !"
 
         },
         {
-            name : "Pant 2",
+            name : "Pant-Adidas",
             slug : "pant-2",
             category : "pant",
             image:"/images/pant2.jpg",
             price : 200,
-            brand : "adidas",
-            rating: 4,
-            reviewsCount : 10 ,
+            brand : "Adidas",
             reviews: [] ,
             stock :20,
             description :"A very good pant !"
 
         },
         {
-            name : "jacket 1",
+            name : "Denim jacket",
             slug : "jacket-1",
             category : "jacket",
             image:"/images/jacket1.jpg",
             price : 200,
-            brand : "peter england",
-            rating: 2.5,
-            reviewsCount : 14 ,
-            reviews: [] ,
+            brand : "Peter England",
+            reviews: [] ,   
             stock :0,
             description :"A very good jacket !"
 

@@ -1,8 +1,8 @@
-import React from 'react'
+import React , {useState} from 'react'
 import db from '../utils/dbConnect'
 import ProductsModel from '../models/Products'
 import Layout from '../components/layout'
-import { Typography } from '@material-ui/core'
+import { CircularProgress, Typography } from '@material-ui/core'
 import ProductItem from '../components/productItem'
 
 export default function Search(props) {
@@ -10,17 +10,18 @@ export default function Search(props) {
     console.log("oi")
     const productData = JSON.parse(products)
     console.log(productData)
-
+    const [load, setLoad]=useState(false);
    
 
     return (
-        <Layout>
-            <Typography component="h1" variant ="h3"> Search Results</Typography>
+        <Layout>    
+            <Typography component="h1" variant ="h3" style={{margin:"10px" , borderBottom:"1px solid grey"}}> Search Results</Typography>
 
-    
+            {load && <CircularProgress/>}
+
             {productData.length == 0 ?
                
-                <Typography variant="h6">No matching items !!</Typography>
+                <Typography variant="h6" style={{margin:"10px"}}> No matching items !!</Typography>
                 :
             
                 <div>
@@ -48,6 +49,7 @@ export async function getServerSideProps(context){
     await db.disconnect()
 
     const sendData = await JSON.stringify(products)
+
     return {
         props:{
             products : sendData,

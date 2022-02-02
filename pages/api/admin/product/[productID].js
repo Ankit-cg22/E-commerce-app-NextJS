@@ -26,7 +26,7 @@ handler.put(async(req, res) => {
         product.name = req.body.name,
         product.brand = req.body.brand,
         product.price = req.body.price,
-        product.category = req.body.category,
+        product.category = req.body.category.toLowerCase(),
         product.description = req.body.description,
         product.slug = req.body.slug,
         product.stock = req.body.count,
@@ -66,8 +66,6 @@ handler.post(async(req,res,next)=>{
     await db.connect()
     const addedProduct= new ProductsModel({
         ...req.body,
-        rating:0,
-        reviewsCount:0
     })
     const product = await addedProduct.save()
     await db.disconnect()

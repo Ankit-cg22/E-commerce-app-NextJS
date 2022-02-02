@@ -116,7 +116,7 @@ export default function OrderHistory() {
                                                         <TableCell>{order.isDelivered ? "Delivered" : "Not delivered"}</TableCell>
                                                         <TableCell>
                                                             <NextLink href={`order/${order._id}`} passHref >
-                                                                <Button variant="outlined">Details</Button>
+                                                                <Button variant="contained">Details</Button>
                                                             </NextLink>
 
                                                         </TableCell>

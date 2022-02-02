@@ -43,7 +43,7 @@ export default function Layout({children , title , description}) {
  
     const searchSubmitHandler = (e) =>{
         e.preventDefault()
-        router.push(`/search?query=${searchQuery}`)
+        router.push(`/search?query=${searchQuery.toLowerCase()}`)
     }
 
     return (

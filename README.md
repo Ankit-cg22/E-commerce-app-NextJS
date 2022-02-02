@@ -47,7 +47,7 @@
 
 - Create a .env file .
 ```
-  DB_URL= <set url>
+  DB_URL= <set Mongo DB url>
   
   JWT_SECRET= <set secret>
   

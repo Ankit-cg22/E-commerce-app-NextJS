@@ -2,7 +2,7 @@ import Layout from '../../components/layout'
 import ProductPage from '../../components/productDetails'
 import useStyles from '../../utils/styles'
 import db from '../../utils/dbConnect'
-import ProductsModel from '../../models/Product'
+import ProductsModel from '../../models/Products'
 
 export default function ProductDetails({data}) {
 
